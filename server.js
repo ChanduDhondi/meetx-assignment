@@ -1,10 +1,9 @@
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
 
 //routes
-
+const appRouter = require("./routes/appRoutes.js");
 
 const app = express();
 
@@ -18,8 +17,8 @@ async function main() {
   await mongoose.connect(process.env.MONGODB_URL);
 }
 
-app.use(bodyParser.json());
-app.use('/api', )
+app.use(express.json());
+app.use("/api", appRouter);
 
 app.all("*", (req, res) => {
   res.status(404).json({ message: "You Lost. No Route Exists" });
