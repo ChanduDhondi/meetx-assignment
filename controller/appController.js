@@ -29,6 +29,8 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
   const { email, password } = req.body;
+  if (!email || !password)
+    return res.status(401).json({ message: "Required email password" });
 
   try {
     const data = await User.findOne({ email: email });
@@ -82,6 +84,7 @@ const bookActivity = async (req, res) => {
 
 const getBookings = async (req, res) => {
   const { userId } = req.params;
+  if (!userId) return res.status(401).json({ message: "Required userId" });
   try {
     const bookings = await Booking.findOne({ user: userId }).populate(
       "activity"
