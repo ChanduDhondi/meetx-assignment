@@ -16,15 +16,15 @@ const { authMiddleware, validate } = require("../middleware.js");
 //Joi validator
 const { userJoi, bookingJoi } = require("../schemaValidate.js");
 
-router.get("/login", login);
-router.post("/register", validate(userJoi), register);
+router.get("/getBookings/:userId", authMiddleware, getBookings);
 router.get("/allActivities", listActivities);
+router.post("/login", login);
+router.post("/register", validate(userJoi), register);
 router.post(
   "/bookActivity",
   authMiddleware,
   validate(bookingJoi),
   bookActivity
 );
-router.post("/getBookings/:userId", authMiddleware, getBookings);
 
 module.exports = router;

@@ -17,7 +17,7 @@ const userSchema = new mongoose.Schema({
       },
       message: (props) => `${props.value} is not a valid email`,
     },
-    requied: [true, "Email is requied"],
+    required: [true, "Email is requied"],
     unique: true,
   },
   password: {
@@ -32,7 +32,7 @@ const userSchema = new mongoose.Schema({
       },
       message: (props) => `${props.value} is not a valid phone number`,
     },
-    requied: [true, "Phone Number is required"],
+    required: [true, "Phone Number is required"],
     unique: true,
   },
 });

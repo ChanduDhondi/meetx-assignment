@@ -12,12 +12,13 @@ const register = async (req, res) => {
     if (existing)
       return res.status(409).json({ error: "User already exists with Email" });
 
-    const response = await User.insertOne({
+    const user = new User({
       name: name,
       email: email,
       password: password,
       phone: phone,
     });
+    const response = await user.save();
     res.status(201).json({ message: "User Registered successfully", response });
   } catch (err) {
     console.log("Error while registering User", err.message);
@@ -72,11 +73,12 @@ const listActivities = async (req, res) => {
 const bookActivity = async (req, res) => {
   const { userId, activityId } = req.body;
   try {
-    const booking = await Booking.insertOne({
+    const booking = new Booking({
       user: userId,
       activity: activityId,
     });
-    res.status(201).json({ booking });
+    const response = await booking.save();
+    res.status(201).json({ response });
   } catch (err) {
     console.log("Error:", err.message);
   }
